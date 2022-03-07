@@ -4,6 +4,7 @@ const {
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+    
     displayName:{
         type:String,
         required:true,
@@ -20,6 +21,9 @@ const userSchema = new Schema({
         trim:true,
         unique:true
     },
+    created: { 
+        type: Date, 
+        default: Date.now },
     profilePicture:{
         type:String,
         default:'/Link do podstawowego pliku img'
