@@ -1,5 +1,6 @@
 const register = require('express').Router()
-const {User} = require('../authSchema/user-schema')
+const {User} = require('../../authSchema/user-schema')
+const bcrypt = require('bcrypt')
 register.post('/auth/register',async(req,res)=>{
     //zrobic validację
     console.log(req.body)
@@ -10,18 +11,13 @@ register.post('/auth/register',async(req,res)=>{
     })
     user.save()
         .then((result)=>{
-            res.send(result)
+            res.redirect('/')
         })
         .catch((er)=>{
             console.log(er)
         })
 
-    // async function  auth() {
-    //     const doc = await User.findOne({email: 'dsadsaddsadasd@gmail.com'}).exec();
-    //     console.log(doc)
-    //     return doc;
-    //   }
-    // auth()
+
 })
 register.get('/register',(req,res)=>{
     res.render('auth/register.ejs')

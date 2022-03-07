@@ -9,5 +9,6 @@ const isUserNotAuthFalse = (req,res,next)=>{
     return next()
 }
 module.exports = {
-    isUserAuthTrue
+    isUserAuthTrue,
+    isUserNotAuthFalse 
 }

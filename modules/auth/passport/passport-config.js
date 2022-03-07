@@ -1,24 +1,31 @@
 const LocalStrategy = require('passport-local').Strategy
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const {User} = require('../authSchema/user-schema')
-const bcrypt = require('bcrypt')
+const {authUserLocal} = require('./authUserLocalS')
 const initializePassport = (passport)=>{
-    const authUser = async(email,password,done)=>{
-        console.log(email)
-        console.log(password)
-        const user = await User.findOne({email: email}).exec();
-        console.log(user)
-        if(user == null)
-            return done(null,false,{message:'Taki mail nie istnieje'})
+   /**
+    * Local strategy
+    */
+    passport.use(new LocalStrategy({usernameField:'email'}, authUserLocal ))
 
-        try {
-            if(await bcrypt.compare(password,user.password))
-                return done(null,user)
-            return done(null,false,{message:'password inncorrect'})
-        } catch (error) {
-            return done(error)
-        }
-    }
-    passport.use(new LocalStrategy({usernameField:'email'}, authUser ))
+    /**
+     * Google auth
+     */
+    passport.use(new GoogleStrategy({
+        clientID: `512522830802-eh9ms0pipob8kjf5lv729bo5kcbohh79.apps.googleusercontent.com`,
+        clientSecret: `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`,
+        callbackURL: "http://localhost:3000/auth/google/callback"
+      },
+      function(accessToken, refreshToken, profile, done) {
+        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        //   return done(null, user);
+        // });
+        console.log(profile)
+        return done(null, profile.id);
+      }
+    ));
+
+    //Serialize deserialize user
     passport.serializeUser((user,done)=> done(null,user._id))
     passport.deserializeUser(async(id,done)=>{
         const user = await User.findOne({_id: id}).exec();
@@ -28,3 +35,4 @@ const initializePassport = (passport)=>{
 module.exports = {
     initializePassport
 }
+

@@ -1,5 +1,5 @@
 const login = require('express').Router()
-const {passport} = require('../../../app')
+const {passport} = require('../../../../app')
 
 login.post('/auth/login',passport.authenticate('local',{
     successRedirect:'/',
