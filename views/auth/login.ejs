@@ -1,6 +1,6 @@
 <h1>Login</h1>
-<% if (messages.error) { %>
-  <%= messages.error %>
+<% if (error) { %>
+  <%= error %>
 <% } %>
 <form action="/auth/login" method="POST">
   <div>
@@ -14,3 +14,4 @@
   <button type="submit">Login</button>
 </form>
 <a href="/register">Register</a>
+<a href="/auth/google"> Login using google</a>

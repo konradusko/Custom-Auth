@@ -9,6 +9,11 @@ const userSchema = new Schema({
         type:String,
         required:true,
         trim:true,
+    },
+    publicName:{
+        type:String,
+        required:false,
+        trim:true,
         unique:true
     },
     password:{
@@ -23,10 +28,20 @@ const userSchema = new Schema({
     },
     created: { 
         type: Date, 
-        default: Date.now },
+        default: Date.now 
+    },
     profilePicture:{
         type:String,
-        default:'/Link do podstawowego pliku img'
+        default:'/Link do podstawowego pliku img',
+    },
+    provider:{
+        name:{
+            type:String,
+        },
+        providerID:{
+            type:String,
+            unique:true
+        }
     }
 })
 const User = mongoose.model('User',userSchema)

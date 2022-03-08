@@ -1,11 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const flash = require('express-flash')
+const flash = require('connect-flash')
 const session = require('express-session')
-
-//init flash
-app.use(flash())
 //init session
 app.use(
     session({
@@ -14,6 +11,11 @@ app.use(
         saveUninitialized:false
     })
 )
+//init flash
+app.use(flash())
+const flashMessageMiddleware = require('./modules/flashMessages/flashMessages');
+// app.use(flashMessageMiddleware.flashMessage)
+
 //Init passport
 const passport = require('passport')
 const {initializePassport} = require('./modules/auth/passport/passport-config')

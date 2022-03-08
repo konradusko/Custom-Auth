@@ -2,6 +2,7 @@ const LocalStrategy = require('passport-local').Strategy
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const {User} = require('../authSchema/user-schema')
 const {authUserLocal} = require('./authUserLocalS')
+const { googleProviderFunction} = require('./authGoogleProvider')
 const initializePassport = (passport)=>{
    /**
     * Local strategy
@@ -16,13 +17,7 @@ const initializePassport = (passport)=>{
         clientSecret: `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`,
         callbackURL: "http://localhost:3000/auth/google/callback"
       },
-      function(accessToken, refreshToken, profile, done) {
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //   return done(null, user);
-        // });
-        console.log(profile)
-        return done(null, profile.id);
-      }
+      googleProviderFunction
     ));
 
     //Serialize deserialize user
