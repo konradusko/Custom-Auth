@@ -5,8 +5,10 @@ const googleProviderFunction = (accessToken, refreshToken, profile, done)=>{
         if(err)
           return done(err)
         //mamy uzytkownika
-        if(user)
+        if(user){
+          //Sprawdzić tutaj provider
           return done(null,user)
+        }
         
         if(!user){
             const newUser = new User({
