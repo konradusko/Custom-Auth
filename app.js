@@ -13,7 +13,7 @@ app.use(
 )
 //init flash
 app.use(flash())
-const flashMessageMiddleware = require('./modules/flashMessages/flashMessages');
+// const flashMessageMiddleware = require('./modules/flashMessages/flashMessages');
 // app.use(flashMessageMiddleware.flashMessage)
 
 //Init passport

@@ -10,12 +10,6 @@ const userSchema = new Schema({
         required:true,
         trim:true,
     },
-    publicName:{
-        type:String,
-        required:false,
-        trim:true,
-        unique:true
-    },
     password:{
         type:String,
         required:true
@@ -40,7 +34,8 @@ const userSchema = new Schema({
         },
         providerID:{
             type:String,
-            unique:true
+            unique:true,
+            required:false
         }
     }
 })

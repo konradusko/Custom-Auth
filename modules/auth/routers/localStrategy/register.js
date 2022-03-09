@@ -7,32 +7,26 @@ register.post('/auth/register',async(req,res)=>{
     const user = new User({
         displayName:req.body.name,
         password: await bcrypt.hash(req.body.password, 10),
-        email:req.body.email
+        email:req.body.email,
+        provider:{
+            name:'local'
+        }
     })
     user.save()
         .then((result)=>{
-            res.redirect('/')
+            res.json({message:'Udało się utworzyć konto'})
         })
         .catch((er)=>{
             console.log(er)
             // res.render('auth/register.ejs',{messages:'errorxD'})
-            // res.json({message: 14,messages:req.flash('error','Takie email jest juz zajetydasdsada')})
-            // res.render('auth/register.ejs',{messages:'test'})
-            let test={
-                userName:'test222'
-            }
-            req.flash('user', test.userName);
-            res.redirect('/register');
+            // res.redirect('/register');
+            res.json({message:'Coś poszlo nie tak'})
             
         })
 
 
 })
 register.get('/register',(req,res)=>{
-    let test={
-        userName:'test'
-    }
-    req.flash('user', test.userName);
     res.render('auth/register.ejs')
 })
 module.exports ={
