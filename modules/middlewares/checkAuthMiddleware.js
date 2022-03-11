@@ -11,12 +11,12 @@ const isUserNotAuthFalse = (req,res,next)=>{
     return next()
 }
 //Kiedy uzytkownik wysyla zapytanie jak jest zalogowany do routu ktory jest dla niezalogowanych uzytkownikow
-const postReqIfUserIsLogginAndNotShould = (req,res,next)=>{
+const midd_LoggedUser_try_NOT_protected_route = (req,res,next)=>{
     if(req.isAuthenticated())
         return res.json({message:'Brak uprawnień'})
     return next()
 }
-const postReqIfUserIsNOTLoggedAndShouldBe = (req,res,next)=>{
+const midd_NOT_LoggedUser_try_PROTECTED_route = (req,res,next)=>{
     if(req.isAuthenticated())
         return next()
     return res.json({message:'Brak uprawnień'})
@@ -24,6 +24,6 @@ const postReqIfUserIsNOTLoggedAndShouldBe = (req,res,next)=>{
 module.exports = {
     isUserAuthTrue,
     isUserNotAuthFalse,
-    postReqIfUserIsLogginAndNotShould,
-    postReqIfUserIsNOTLoggedAndShouldBe
+    midd_LoggedUser_try_NOT_protected_route,
+    midd_NOT_LoggedUser_try_PROTECTED_route
 }

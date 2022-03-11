@@ -1,38 +1,26 @@
 const loginGoogle = require('express').Router()
 const {passport} = require('../../../../app')
 loginGoogle.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile','email','openid'] }));
-
-//   passport.authenticate('local',(err,user)=>{
-//     if(err)
-//     return res.json({message:err})
-//     if(!user)
-//     return res.json({message:'Nie udało się zalogować, spróbuj ponownie.'})
-//     if(user){
-//         req.login(user,{},(err)=>{
-//             console.log(err)
-//             if(err)
-//                 return res.json({message:err})
-//             return res.json({message:'Udało się zalogować',sucess:true})
-//         })
-//     }
-
-// })(req,res)
-
-
+passport.authenticate('google', { scope: ['profile','email','openid'] }));
 loginGoogle.get('/auth/google/callback',(req,res)=>{
   console.log('eee')
   passport.authenticate('google', (err,user)=>{
-    console.log(err,user)
+    console.log('XDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
+    if(err)
+      return res.redirect(`/login?error=${err}`)
+    if(!user)
+      return res.redirect(`/login?error=Nie udało się zalogować używając google`)
+    console.log('ten route')
+      console.log(err)
+      console.log(user)
+            req.login(user,{},(err)=>{
+            if(err)
+            return res.redirect(`/login?error=${err}`)
+            return res.redirect('/')
+        })
+    
   })(req,res)
 })
-// loginGoogle.get('/auth/google/callback', 
-//   passport.authenticate('google', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     // Successful authentication, redirect home.
-//     res.redirect('/');
-//   });
-
 module.exports={
     loginGoogle
 }

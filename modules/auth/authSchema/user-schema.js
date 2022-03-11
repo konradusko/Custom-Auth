@@ -9,6 +9,13 @@ const userSchema = new Schema({
         type:String,
         required:true,
         trim:true,
+        
+    },
+    userPublicName:{
+        type:String,
+        required:false,
+        unique:true,
+        sparse:true
     },
     password:{
         type:String,
@@ -31,6 +38,7 @@ const userSchema = new Schema({
     provider:{
         name:{
             type:String,
+            required:true
         },
         providerID:{
             type:String,
