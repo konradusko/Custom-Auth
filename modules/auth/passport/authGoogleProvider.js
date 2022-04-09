@@ -21,7 +21,6 @@ const googleProviderFunction = (accessToken, refreshToken, profile, done)=>{
           return done('Nie udało się zalogować')
       
         }
-        
         if(!user){
             const newUser = new User({
               displayName:profile._json.name,
