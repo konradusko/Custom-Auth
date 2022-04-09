@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const flash = require('connect-flash')
+// const flash = require('connect-flash')
 const session = require('express-session')
 //init session
 app.use(
@@ -12,7 +12,7 @@ app.use(
     })
 )
 //init flash
-app.use(flash())
+// app.use(flash())
 // const flashMessageMiddleware = require('./modules/flashMessages/flashMessages');
 // app.use(flashMessageMiddleware.flashMessage)
 
